@@ -17,7 +17,7 @@ func _physics_process(delta):
 	direction.y = int(Input.is_action_pressed("ui_down") ) - int(Input.is_action_pressed("ui_up") )
 	direction = direction.normalized()
 	
-	move_and_collide(direction*20*delta,false)
+	move_and_collide(direction*50*delta,false)
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
