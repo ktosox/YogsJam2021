@@ -4,6 +4,8 @@ var maxLines = 5
 
 var cheatsUnlocked = true
 
+var active = false
+
 var eggList = {
 	"YES" : "NO",
 	"NO" : "YES",
@@ -14,11 +16,14 @@ func _ready():
 	pass # Replace with function body.
 
 func _input(event):
-	if event.is_action_pressed("ui_down"):
-		if !$Animator.is_playing():
+	if event.is_action_pressed("ui_cancel") and !$Animator.is_playing():
+		if active :
+			$Animator.play("hide")
+			get_tree().paused = false
+		else:
+			get_tree().paused = true
+			$Input.clear()
 			$Animator.play("show")
-	if event.is_action_pressed("ui_cancel"):
-		$Animator.play("hide")
 			
 
 func process_command(text:String):
@@ -59,5 +64,7 @@ func _on_Input_text_entered(new_text):
 
 func _on_Animator_animation_finished(anim_name):
 	if anim_name == "show":
+		
 		$Input.grab_focus()
+	active = !active
 	pass # Replace with function body.
