@@ -13,6 +13,10 @@ config_version=4
 config/name="YogsJam2021"
 config/icon="res://icon.png"
 
+[autoload]
+
+GM="*res://GameManager.tscn"
+
 [display]
 
 window/size/width=1280
@@ -24,10 +28,9 @@ window/stretch/aspect="keep"
 
 2d_physics/layer_1="DO NOT USE"
 2d_physics/layer_2="WALL"
-2d_physics/layer_3="ENEMIES"
+2d_physics/layer_3="ENEMIE"
 2d_physics/layer_4="PLAYER"
-2d_physics/layer_5="RED"
-2d_physics/layer_6="BLUE"
+2d_physics/layer_5="BULLET"
 
 [physics]
 

@@ -2,9 +2,12 @@ extends Control
 
 var maxLines = 5
 
-var cheatsUnlocked = false
+var cheatsUnlocked = true
 
-
+var eggList = {
+	"YES" : "NO",
+	"NO" : "YES",
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,8 +21,16 @@ func _input(event):
 		$Animator.play("hide")
 			
 
-func process_command(text):
-	$Output.text = "> NO SUCH COMMAND AS "+ text+ '\n' + $Output.text
+func process_command(text:String):
+	var command = text.split(" ")[0]
+	command = command.to_upper()
+	if eggList.has(command) :
+		$Output.text = "> " + eggList[command] + '\n' + $Output.text
+	else:
+		match command :
+
+			_:
+				$Output.text = "> NO SUCH COMMAND AS "+ command+ '\n' + $Output.text
 	pass
 
 
