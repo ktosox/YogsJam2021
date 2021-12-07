@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/NewHitPoint.wav-da9c4f113a8cd84a2d46f4ab6ca96f6a.sample"
+
+[deps]
+
+source_file="res://Resources/Sound/Effects/NewHitPoint.wav"
+dest_files=[ "res://.import/NewHitPoint.wav-da9c4f113a8cd84a2d46f4ab6ca96f6a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

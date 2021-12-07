@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/StonesSlamToTheGround.wav-0a02d2903cffc8eb93f0da0b646cdaee.sample"
+
+[deps]
+
+source_file="res://Resources/Sound/Effects/StonesSlamToTheGround.wav"
+dest_files=[ "res://.import/StonesSlamToTheGround.wav-0a02d2903cffc8eb93f0da0b646cdaee.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
