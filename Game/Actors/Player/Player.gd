@@ -35,11 +35,16 @@ func _input(event):
 			
 			fireCooldown = fireRate
 	if event.is_action_pressed("ui_focus_next") and !$Body/AnimationPlayer.is_playing():
+		
 		if !fightMode :
+			$Transform.pitch_scale = 0.6
+			$Transform.play()
 			$Body/AnimationPlayer.play("Fight")
 		else:
+			$Transform.pitch_scale = 0.8
+			$Transform.play()
 			$Body/AnimationPlayer.play_backwards("Fight")
-		print(int(!fightMode))
+		
 #		$StabbeRang.attack_position(global_position + movement.normalized() * RANGE)
 
 func _physics_process(delta):
@@ -59,7 +64,8 @@ func _physics_process(delta):
 	direction *= delta * ( ACCEL + 500*int(!fightMode))
 	movement = movement - ( movement / (FRICTION*delta) ) + direction
 	movement = movement.clamped(MAX_SPEED + 520*int(!fightMode))
-
+	
+	$Woosh.pitch_scale = ( 100 + movement.length() ) / 200
 	move_and_collide(( impact+movement)*delta,false)
 	impact -= delta  * impact
 	#$Body.rotation = movement.angle()
@@ -84,6 +90,8 @@ func fire():
 	bullet.team = team
 	get_parent().add_child(bullet)
 	$Body/Ring/CircleSmall.visible = false
+	$Shoot.pitch_scale = (randf() + 8)/4.5
+	$Shoot.play()
 	pass
 
 func bonk(attack:bool , damage = 1):
