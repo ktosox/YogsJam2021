@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/MinimalSpaceWarp.wav-ee4f144eab0bec81056430d4c60a262a.sample"
+
+[deps]
+
+source_file="res://Resources/Sound/Effects/MinimalSpaceWarp.wav"
+dest_files=[ "res://.import/MinimalSpaceWarp.wav-ee4f144eab0bec81056430d4c60a262a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=false
+edit/loop=true
+compress/mode=0

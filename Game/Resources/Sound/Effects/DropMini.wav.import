@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/DropMini.wav-56551173f8986fea74a398f836f1f899.sample"
+
+[deps]
+
+source_file="res://Resources/Sound/Effects/DropMini.wav"
+dest_files=[ "res://.import/DropMini.wav-56551173f8986fea74a398f836f1f899.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

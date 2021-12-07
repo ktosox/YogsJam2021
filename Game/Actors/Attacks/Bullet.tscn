@@ -4,7 +4,7 @@
 [ext_resource path="res://Resources/Sprites/Junk1.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4, 4 )
+extents = Vector2( 5, 5 )
 
 [sub_resource type="Curve" id=2]
 _data = [ Vector2( 0.755435, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -5.71421, 0.0, 0, 0 ]
@@ -34,8 +34,9 @@ rotation = 0.785398
 shape = SubResource( 1 )
 
 [node name="Line2D" type="Line2D" parent="."]
+position = Vector2( 1, 0 )
 rotation = 1.5708
-points = PoolVector2Array( -5, 2, 0, -3, 5, 2 )
+points = PoolVector2Array( -6.99999, 4.00003, 0, -3, 7.00001, 3.99997 )
 width = 3.0
 default_color = Color( 1, 1, 1, 1 )
 

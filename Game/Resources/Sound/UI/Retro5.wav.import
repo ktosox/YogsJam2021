@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Retro5.wav-22d4022194b26dde6fb88ec4e2faaed0.sample"
+
+[deps]
+
+source_file="res://Resources/Sound/UI/Retro5.wav"
+dest_files=[ "res://.import/Retro5.wav-22d4022194b26dde6fb88ec4e2faaed0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

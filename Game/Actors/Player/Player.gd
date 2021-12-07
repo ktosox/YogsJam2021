@@ -10,6 +10,8 @@ const FRICTION = 700
 
 #const RANGE = 90
 
+var fightMode = false
+
 var impact = Vector2.ZERO
 
 var movement = Vector2.ZERO
@@ -20,15 +22,29 @@ var health = 1.0
 
 var fireCooldown = 0.0
 
+var fireRate = 0.27
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("ui_accept") and fightMode:
 		if fireCooldown < 0.0:
 			fire()
-			fireCooldown = 0.35
+			
+			fireCooldown = fireRate
+	if event.is_action_pressed("ui_focus_next") and !$Body/AnimationPlayer.is_playing():
+		
+		if !fightMode :
+			$Transform.pitch_scale = 0.6
+			$Transform.play()
+			$Body/AnimationPlayer.play("Fight")
+		else:
+			$Transform.pitch_scale = 0.8
+			$Transform.play()
+			$Body/AnimationPlayer.play_backwards("Fight")
+		
 #		$StabbeRang.attack_position(global_position + movement.normalized() * RANGE)
 
 func _physics_process(delta):
@@ -36,19 +52,30 @@ func _physics_process(delta):
 	direction.x = int(Input.is_action_pressed("ui_right") ) - int(Input.is_action_pressed("ui_left") )
 	direction.y = int(Input.is_action_pressed("ui_down") ) - int(Input.is_action_pressed("ui_up") )
 	direction = direction.normalized()
-	direction *= delta * ACCEL
+	if fightMode :
+		pass
+	else:
+		if direction.y < 0 :
+			direction*=1.6
+		if direction.x != 0:
+			direction.x *= 0.2
+			rotate(direction.x*delta*12)
+	direction = direction.rotated(rotation)
+	direction *= delta * ( ACCEL + 500*int(!fightMode))
 	movement = movement - ( movement / (FRICTION*delta) ) + direction
-	movement = movement.clamped(MAX_SPEED)
-
+	movement = movement.clamped(MAX_SPEED + 520*int(!fightMode))
+	
+	$Woosh.pitch_scale = ( 100 + movement.length() ) / 200
 	move_and_collide(( impact+movement)*delta,false)
 	impact -= delta  * impact
-	$Body.rotation = movement.angle()
+	#$Body.rotation = movement.angle()
 	#$Camera2D.rotation = movement.angle() + PI*0.5
 	modulate = GM.teamColor[team]
 	modulate = modulate.darkened(1 - health)
 	
 	fireCooldown -= delta
-	
+	if fireCooldown < 0.0 :
+		$Body/Ring/CircleSmall.visible = true
 	
 	pass
 
@@ -62,6 +89,9 @@ func fire():
 	bullet.linear_velocity = fireVec * 340
 	bullet.team = team
 	get_parent().add_child(bullet)
+	$Body/Ring/CircleSmall.visible = false
+	$Shoot.pitch_scale = (randf() + 8)/4.5
+	$Shoot.play()
 	pass
 
 func bonk(attack:bool , damage = 1):
@@ -83,3 +113,8 @@ func die():
 func apply_impact(kick):
 	impact += kick
 	pass
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	fightMode = !fightMode
+	pass # Replace with function body.
