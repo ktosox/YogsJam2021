@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Resources/Sprites/Ring.png" type="Texture" id=1]
 [ext_resource path="res://Actors/Player/Player.gd" type="Script" id=2]
@@ -9,9 +9,96 @@
 [ext_resource path="res://Resources/Sound/Effects/SpecialMiniReward.wav" type="AudioStream" id=7]
 [ext_resource path="res://Resources/Sound/Effects/ImmediateLaserAttack.wav" type="AudioStream" id=8]
 [ext_resource path="res://Resources/Sound/Effects/MinimalSpaceWarp.wav" type="AudioStream" id=9]
+[ext_resource path="res://Resources/Sound/Effects/MiniHit.wav" type="AudioStream" id=10]
+[ext_resource path="res://Resources/Font/GrapeSoda.ttf" type="DynamicFontData" id=11]
 
 [sub_resource type="CircleShape2D" id=7]
 radius = 15.0
+
+[sub_resource type="DynamicFont" id=10]
+size = 64
+font_data = ExtResource( 11 )
+
+[sub_resource type="Animation" id=11]
+resource_name = "New Anim"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 4, 4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -304, -262 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("../..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 5.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "back_to_menu"
+} ]
+}
+
+[sub_resource type="Animation" id=12]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 76, 67 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -152, -134 ) ]
+}
 
 [sub_resource type="Animation" id=8]
 resource_name = "Fight"
@@ -93,7 +180,7 @@ tracks/6/path = NodePath("../Camera2D:zoom")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
-tracks/6/enabled = true
+tracks/6/enabled = false
 tracks/6/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( -2, -2 ),
@@ -105,7 +192,7 @@ tracks/7/path = NodePath("../Camera2D:position")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
-tracks/7/enabled = true
+tracks/7/enabled = false
 tracks/7/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
@@ -233,10 +320,10 @@ tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 3, 3 ) ]
+"values": [ Vector2( 4, 4 ) ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("../Camera2D:offset")
+tracks/10/path = NodePath("../Camera2D:position")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -245,19 +332,7 @@ tracks/10/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-tracks/11/type = "value"
-tracks/11/path = NodePath("../Camera2D:position")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, -150 ) ]
 }
 
 [sub_resource type="Curve" id=5]
@@ -281,7 +356,7 @@ damping = 20.0
 scale = 0.3
 scale_curve = SubResource( 6 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["PLAYER"]]
 collision_layer = 8
 collision_mask = 22
 script = ExtResource( 2 )
@@ -290,12 +365,31 @@ script = ExtResource( 2 )
 shape = SubResource( 7 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -150 )
 rotating = true
 current = true
-zoom = Vector2( 3, 3 )
+zoom = Vector2( 4, 4 )
 process_mode = 0
 smoothing_enabled = true
 smoothing_speed = 6.0
+
+[node name="Label" type="Label" parent="Camera2D"]
+margin_left = -152.0
+margin_top = -134.0
+margin_bottom = -3.0
+rect_scale = Vector2( 1e-05, 1e-05 )
+custom_fonts/font = SubResource( 10 )
+text = "GAME
+OVER"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D/Label"]
+"anims/New Anim" = SubResource( 11 )
+anims/RESET = SubResource( 12 )
 
 [node name="Body" type="Sprite" parent="."]
 rotation = -1.5708
@@ -377,5 +471,10 @@ stream = ExtResource( 9 )
 volume_db = -18.0
 autoplay = true
 bus = "Woosh Bus"
+
+[node name="Damage" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
+pitch_scale = 1.6
+bus = "Effects"
 
 [connection signal="animation_finished" from="Body/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

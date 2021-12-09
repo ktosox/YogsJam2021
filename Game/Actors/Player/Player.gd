@@ -24,17 +24,19 @@ var fireCooldown = 0.0
 
 var fireRate = 0.27
 
+var dead = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 func _input(event):
-	if event.is_action_pressed("ui_accept") and fightMode:
+	if event.is_action_pressed("shoot") and fightMode:
 		if fireCooldown < 0.0:
 			fire()
 			
 			fireCooldown = fireRate
-	if event.is_action_pressed("ui_focus_next") and !$Body/AnimationPlayer.is_playing():
+	if event.is_action_pressed("shift") and !$Body/AnimationPlayer.is_playing():
 		
 		if !fightMode :
 			$Transform.pitch_scale = 0.6
@@ -48,6 +50,8 @@ func _input(event):
 #		$StabbeRang.attack_position(global_position + movement.normalized() * RANGE)
 
 func _physics_process(delta):
+	if dead :
+		return
 	var direction = Vector2.ZERO
 	direction.x = int(Input.is_action_pressed("ui_right") ) - int(Input.is_action_pressed("ui_left") )
 	direction.y = int(Input.is_action_pressed("ui_down") ) - int(Input.is_action_pressed("ui_up") )
@@ -99,16 +103,23 @@ func bonk(attack:bool , damage = 1):
 		health += 0.1 * damage
 		health = min(health,1.0)
 	else:
+		$Damage.play()
 		health -= 0.1 * damage
 		
-	if health < 0.5 :
+	if health < 0.25 :
 		die()
 	pass
 
 func die():
-	queue_free()
+	dead = true
+	$CollisionShape2D.queue_free()
+	$Camera2D/Label/AnimationPlayer.play("New Anim")
+	$Body.visible = false
 	pass
 
+func back_to_menu():
+	get_tree().change_scene("res://UI/MainMenu.tscn")
+	pass
 
 func apply_impact(kick):
 	impact += kick

@@ -1,0 +1,128 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/Options.gd" type="Script" id=1]
+[ext_resource path="res://UI/Fonts/Options.tres" type="DynamicFont" id=2]
+
+[node name="Options" type="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -480.0
+margin_bottom = -120.0
+rect_min_size = Vector2( 800, 600 )
+tab_align = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sound" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Sound"]
+margin_top = 46.0
+margin_right = 792.0
+margin_bottom = 78.0
+size_flags_vertical = 10
+custom_fonts/font = ExtResource( 2 )
+text = "SOUND"
+align = 1
+
+[node name="Sound" type="HSlider" parent="Sound"]
+margin_top = 82.0
+margin_right = 792.0
+margin_bottom = 98.0
+min_value = -40.0
+max_value = 20.0
+step = 4.0
+
+[node name="HSeparator" type="HSeparator" parent="Sound"]
+margin_top = 102.0
+margin_right = 792.0
+margin_bottom = 106.0
+size_flags_vertical = 0
+
+[node name="Label3" type="Label" parent="Sound"]
+margin_top = 156.0
+margin_right = 792.0
+margin_bottom = 188.0
+size_flags_vertical = 10
+custom_fonts/font = ExtResource( 2 )
+text = "EFFECTS"
+align = 1
+
+[node name="Effects" type="HSlider" parent="Sound"]
+margin_top = 192.0
+margin_right = 792.0
+margin_bottom = 208.0
+min_value = -40.0
+max_value = 20.0
+step = 4.0
+
+[node name="HSeparator2" type="HSeparator" parent="Sound"]
+margin_top = 212.0
+margin_right = 792.0
+margin_bottom = 216.0
+
+[node name="Label2" type="Label" parent="Sound"]
+margin_top = 266.0
+margin_right = 792.0
+margin_bottom = 298.0
+size_flags_vertical = 10
+custom_fonts/font = ExtResource( 2 )
+text = "MUSIC"
+align = 1
+
+[node name="Music" type="HSlider" parent="Sound"]
+margin_top = 302.0
+margin_right = 792.0
+margin_bottom = 318.0
+min_value = -40.0
+max_value = 20.0
+step = 4.0
+
+[node name="HSeparator3" type="HSeparator" parent="Sound"]
+margin_top = 322.0
+margin_right = 792.0
+margin_bottom = 326.0
+
+[node name="Control" type="Control" parent="Sound"]
+margin_top = 330.0
+margin_right = 792.0
+margin_bottom = 564.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Layout2" type="VBoxContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Layout2"]
+margin_right = 792.0
+margin_bottom = 564.0
+size_flags_vertical = 3
+color = Color( 0.764706, 0, 0, 1 )
+
+[connection signal="value_changed" from="Sound/Sound" to="." method="_on_Sound_value_changed"]
+[connection signal="value_changed" from="Sound/Effects" to="." method="_on_Effects_value_changed"]
+[connection signal="value_changed" from="Sound/Music" to="." method="_on_Music_value_changed"]

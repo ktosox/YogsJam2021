@@ -1,12 +1,12 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://World/TestRoom.gd" type="Script" id=1]
 [ext_resource path="res://Resources/Sprites/Doncon.png" type="Texture" id=2]
 [ext_resource path="res://Resources/Sprites/Junk1.png" type="Texture" id=3]
 [ext_resource path="res://Resources/Sprites/Square_round.png" type="Texture" id=4]
 [ext_resource path="res://Actors/Player/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Resources/Font/LycheeSoda.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Actors/Enemies/FlyBoi.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Actors/Enemies/SwirlyBoi.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Actors/Walls.tscn" type="PackedScene" id=9]
 [ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=10]
 
@@ -102,6 +102,10 @@ scale = 0.2
 hue_variation = 0.39
 hue_variation_random = 0.93
 
+[sub_resource type="DynamicFont" id=10]
+size = 30
+font_data = ExtResource( 6 )
+
 [sub_resource type="Environment" id=3]
 background_mode = 4
 glow_enabled = true
@@ -116,8 +120,6 @@ glow_bicubic_upscale = true
 
 [node name="TestRoom" type="Node2D"]
 script = ExtResource( 1 )
-
-[node name="GUI" parent="." instance=ExtResource( 10 )]
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 anchor_right = 1.0
@@ -195,27 +197,22 @@ texture = ExtResource( 4 )
 [node name="FlyBoi" parent="ViewportContainer/Viewport" instance=ExtResource( 7 )]
 position = Vector2( -60, 0 )
 
-[node name="FlyBoi2" parent="ViewportContainer/Viewport" instance=ExtResource( 7 )]
-position = Vector2( -60, 120 )
-
-[node name="SwirlyBoi" parent="ViewportContainer/Viewport" instance=ExtResource( 8 )]
-position = Vector2( 40, 120 )
-
-[node name="SwirlyBoi2" parent="ViewportContainer/Viewport" instance=ExtResource( 8 )]
-position = Vector2( 300, 120 )
-team = true
-
-[node name="Label" type="Label" parent="."]
-visible = false
-margin_left = 534.0
-margin_top = 137.0
-margin_right = 591.0
-margin_bottom = 168.0
-text = "ABCEDEF
-5454545"
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 848.0
+margin_top = 399.0
+margin_right = 1053.0
+margin_bottom = 575.0
+custom_fonts/normal_font = SubResource( 10 )
+bbcode_enabled = true
+bbcode_text = "ABCD
+edfgtyhhjj"
+text = "ABCD
+edfgtyhhjj"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="GUI" parent="." instance=ExtResource( 10 )]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )

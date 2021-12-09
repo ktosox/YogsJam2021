@@ -11,17 +11,16 @@ func explode():
 	pass
 
 
-func _on_TimerTest_timeout():
-	explode()
-	pass # Replace with function body.
-
-
 func _on_Explosion_body_entered(body):
-	if body.is_class("KinematicBody2D"):
-		var kickVec = body.global_position - global_position
-		var power = 140 * (40/kickVec.length())
-		kickVec = kickVec.normalized()
-		body.apply_impact(kickVec * power )
+	if body.is_class("RigidBody2D"):
+		if body.has_method("bonk"):
+			body.bonk(!body.team,0.8)
+			pass
+#	if body.is_class("KinematicBody2D"):
+#		var kickVec = body.global_position - global_position
+#		var power = 140 * (40/kickVec.length())
+#		kickVec = kickVec.normalized()
+#		body.apply_impact(kickVec * power )
 	pass # Replace with function body.
 
 

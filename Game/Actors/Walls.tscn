@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Resources/Walls.png" type="Texture" id=1]
+[ext_resource path="res://Actors/Walls.gd" type="Script" id=2]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 32, 32, 0, 32, 32, 0 )
@@ -90,3 +91,5 @@ collision_bounce = 1.0
 collision_layer = 2
 collision_mask = 28
 format = 1
+script = ExtResource( 2 )
+autoGen = true

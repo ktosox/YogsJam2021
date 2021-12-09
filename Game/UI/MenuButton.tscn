@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Resources/Font/LycheeSoda.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://UI/MenuButton.gd" type="Script" id=2]
+[ext_resource path="res://Resources/Sound/UI/Retro8.wav" type="AudioStream" id=3]
+[ext_resource path="res://Resources/Sound/UI/Retro5.wav" type="AudioStream" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 4
+font_data = ExtResource( 1 )
+
+[node name="MenuButton" type="Button"]
+margin_left = 176.0
+margin_top = 169.0
+margin_right = 188.0
+margin_bottom = 189.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+custom_colors/font_color_focus = Color( 0.262745, 1, 0.984314, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.552941, 0.537255, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "TEST"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+pitch_scale = 0.8
+bus = "Effects"
+
+[node name="Press" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[connection signal="button_down" from="." to="." method="_on_MenuButton_button_down"]
+[connection signal="focus_entered" from="." to="." method="_on_MenuButton_focus_entered"]
+[connection signal="mouse_entered" from="." to="." method="_on_MenuButton_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_MenuButton_mouse_exited"]

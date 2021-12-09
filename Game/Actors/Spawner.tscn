@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Actors/Spawner.gd" type="Script" id=1]
+[ext_resource path="res://Resources/Sprites/Circle_small.png" type="Texture" id=2]
+[ext_resource path="res://Resources/Sprites/Square_round.png" type="Texture" id=3]
+
+[sub_resource type="PhysicsMaterial" id=5]
+bounce = 1.0
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.336364 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+width = 256
+curve = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 0, 20, 0 )
+flag_disable_z = true
+spread = 20.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 20.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 6.0
+scale = 0.1
+scale_curve = SubResource( 2 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 20, 20 )
+
+[node name="Spawner" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 28
+mode = 1
+mass = 30.0
+physics_material_override = SubResource( 5 )
+contacts_reported = 2
+contact_monitor = true
+script = ExtResource( 1 )
+death = 0.7
+armor = 0.03
+team = true
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 21, 0 )
+amount = 10
+lifetime = 0.9
+process_material = SubResource( 3 )
+texture = ExtResource( 2 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+position = Vector2( 0, 21 )
+rotation = 1.5708
+amount = 10
+lifetime = 0.9
+process_material = SubResource( 3 )
+texture = ExtResource( 2 )
+
+[node name="Particles2D3" type="Particles2D" parent="."]
+position = Vector2( -21, 0 )
+rotation = 3.14159
+amount = 10
+lifetime = 0.9
+process_material = SubResource( 3 )
+texture = ExtResource( 2 )
+
+[node name="Particles2D4" type="Particles2D" parent="."]
+position = Vector2( 0, -21 )
+rotation = 4.71239
+amount = 10
+lifetime = 0.9
+process_material = SubResource( 3 )
+texture = ExtResource( 2 )
+
+[node name="SquareRound" type="Sprite" parent="."]
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
