@@ -125,6 +125,10 @@ func die():
 	pass
 
 func back_to_menu():
+	var endScore = get_tree().get_nodes_in_group("SCOREBOARD")[0].get_score()
+	if  endScore > GM.highScore :
+		GM.highScore = endScore
+		GM.save_score(GM.highScore)
 	get_tree().change_scene("res://UI/MainMenu.tscn")
 	pass
 

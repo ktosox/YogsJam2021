@@ -52,11 +52,11 @@ tracks/0/keys = {
 }
 
 [sub_resource type="DynamicFont" id=4]
-size = 64
+size = 96
 outline_size = 2
 outline_color = Color( 0.317647, 0.317647, 0.317647, 1 )
 extra_spacing_top = 4
-extra_spacing_char = 5
+extra_spacing_char = 6
 font_data = ExtResource( 2 )
 
 [node name="GUI" type="CanvasLayer"]
