@@ -22,7 +22,7 @@ angle_random = 1.0
 scale = 0.15
 scale_curve = SubResource( 3 )
 
-[node name="Bullet" type="RigidBody2D"]
+[node name="Bullet" type="RigidBody2D" groups=["SCORE"]]
 collision_layer = 16
 collision_mask = 14
 contacts_reported = 2

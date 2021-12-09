@@ -25,7 +25,7 @@ func _physics_process(delta):
 
 
 func _kick_bucket():
-	print("kicking bucket")
+
 	moveCooldown = 500
 	$Move.stop()
 	$Move.call_deferred("queue_free")
@@ -37,8 +37,9 @@ func _kick_bucket():
 
 func _on_SwirlyBoi_body_entered(body):
 	if body.has_method("bonk") and body.team != team:
-		body.bonk(team,health)
+		body.bonk(self,health)
 		die()
+		
 	pass # Replace with function body.
 
 

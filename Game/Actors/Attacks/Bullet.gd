@@ -4,6 +4,7 @@ extends RigidBody2D
 var team = false
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	modulate = GM.teamColor[team]
@@ -17,6 +18,6 @@ func _ready():
 
 func _on_Bullet_body_entered(body):
 	if body.has_method("bonk"):
-		body.bonk(team)
+		body.bonk(self)
 	call_deferred("queue_free")
 	pass # Replace with function body.

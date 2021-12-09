@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UI/CheatConsole.gd" type="Script" id=1]
+[ext_resource path="res://Resources/Font/LycheeSoda.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://UI/Score.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -49,6 +51,14 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 750 ), Vector2( 0, 546 ) ]
 }
 
+[sub_resource type="DynamicFont" id=4]
+size = 64
+outline_size = 2
+outline_color = Color( 0.317647, 0.317647, 0.317647, 1 )
+extra_spacing_top = 4
+extra_spacing_char = 5
+font_data = ExtResource( 2 )
+
 [node name="GUI" type="CanvasLayer"]
 
 [node name="CheatConsole" type="Panel" parent="." groups=["CHEAT"]]
@@ -91,6 +101,18 @@ __meta__ = {
 anims/RESET = SubResource( 1 )
 anims/hide = SubResource( 2 )
 anims/show = SubResource( 3 )
+
+[node name="Score" type="RichTextLabel" parent="." groups=["SCOREBOARD"]]
+anchor_right = 1.0
+rect_min_size = Vector2( 0, 90 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[center] 000000000000000"
+text = " 000000000000000"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="focus_entered" from="CheatConsole/Output" to="CheatConsole" method="_on_Output_focus_entered"]
 [connection signal="text_entered" from="CheatConsole/Input" to="CheatConsole" method="_on_Input_text_entered"]

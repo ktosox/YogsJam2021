@@ -8,6 +8,8 @@ export var armor = 0.1
 
 export var team = false
 
+export var points = 0
+
 var target : Node2D
 
 var timerDeath : Timer
@@ -23,7 +25,8 @@ func update_team():
 	pass
 
 
-func bonk(attack:bool,damage = 1):
+func bonk(caller, damage = 1):
+	var attack = caller.team
 	if team == attack :
 		health += armor * damage
 		health = min(health,1.0)
@@ -32,7 +35,10 @@ func bonk(attack:bool,damage = 1):
 	update_team()
 	if health <= death :
 		die()
-	print("new HP: ",health)
+		if caller.is_in_group("SCORE"):
+			get_tree().get_nodes_in_group("SCOREBOARD")[0].add_points(points)
+			print("SCORE")
+
 	pass
 
 

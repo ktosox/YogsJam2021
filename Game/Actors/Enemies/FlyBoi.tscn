@@ -71,8 +71,9 @@ mass = 5.0
 can_sleep = false
 linear_damp = 3.0
 script = ExtResource( 4 )
-death = 0.7
-armor = 0.05
+death = 0.4
+armor = 0.4
+points = 69
 
 [node name="Body" type="Sprite" parent="."]
 scale = Vector2( 0.4, 0.4 )

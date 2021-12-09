@@ -8,7 +8,10 @@ var next = 0
 
 var bois = []
 
-
+func _kick_bucket():
+	$AnimationPlayer.play("New Anim")
+	$CollisionShape2D.queue_free()
+	pass
 
 func _on_Timer_timeout():
 	for b in bois:

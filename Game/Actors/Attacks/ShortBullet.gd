@@ -23,6 +23,6 @@ func _on_Timer_timeout():
 
 func _on_ShortBullet_body_entered(body):
 	if body.has_method("bonk"):
-		body.bonk(team)
+		body.bonk(self)
 	call_deferred("queue_free")
 	pass # Replace with function body.

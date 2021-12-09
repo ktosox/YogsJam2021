@@ -2,9 +2,9 @@ extends KinematicBody2D
 
 var bulletScene = preload("res://Actors/Attacks/Bullet.tscn")
 
-const MAX_SPEED = 135
+const MAX_SPEED = 360
 
-const ACCEL = 780
+const ACCEL = 820
 
 const FRICTION = 700
 
@@ -53,21 +53,27 @@ func _physics_process(delta):
 	if dead :
 		return
 	var direction = Vector2.ZERO
+	var turn = 0
 	direction.x = int(Input.is_action_pressed("ui_right") ) - int(Input.is_action_pressed("ui_left") )
-	direction.y = int(Input.is_action_pressed("ui_down") ) - int(Input.is_action_pressed("ui_up") )
+	direction.y = int(Input.is_action_pressed("ui_down") or Input.is_action_pressed("turn_down") ) - int(Input.is_action_pressed("ui_up") or Input.is_action_pressed("turn_up"))
 	direction = direction.normalized()
-	if fightMode :
-		pass
-	else:
-		if direction.y < 0 :
-			direction*=1.6
-		if direction.x != 0:
-			direction.x *= 0.2
-			rotate(direction.x*delta*12)
+	turn = int(Input.is_action_pressed("turn_right")) - int(Input.is_action_pressed("turn_left"))
+#	if fightMode :
+#		pass
+#	else:
+#		if direction.y < 0 :
+#			
+#		if direction.x != 0:
+#			direction.x *= 0.2
+#			rotate(direction.x*delta*12)
+	if direction.y < 0 :
+		direction.y *= 1.8
+	direction.x += 0.2 * turn
+	rotate(turn*delta*2)
 	direction = direction.rotated(rotation)
-	direction *= delta * ( ACCEL + 500*int(!fightMode))
+	direction *= delta * ( ACCEL )
 	movement = movement - ( movement / (FRICTION*delta) ) + direction
-	movement = movement.clamped(MAX_SPEED + 520*int(!fightMode))
+	movement = movement.clamped(MAX_SPEED )
 	
 	$Woosh.pitch_scale = ( 100 + movement.length() ) / 200
 	move_and_collide(( impact+movement)*delta,false)
@@ -94,11 +100,12 @@ func fire():
 	bullet.team = team
 	get_parent().add_child(bullet)
 	$Body/Ring/CircleSmall.visible = false
-	$Shoot.pitch_scale = (randf() + 8)/4.5
+	$Shoot.pitch_scale = (randf()*1.9 + 10)/6.5
 	$Shoot.play()
 	pass
 
-func bonk(attack:bool , damage = 1):
+func bonk(caller, damage = 1):
+	var attack = caller.team
 	if team == attack :
 		health += 0.1 * damage
 		health = min(health,1.0)
