@@ -136,6 +136,7 @@ func back_to_menu():
 		GM.highScore = endScore
 		GM.save_score(GM.highScore)
 	get_tree().change_scene("res://UI/MainMenu.tscn")
+	GM.currentLevel = 0
 	pass
 
 func apply_impact(kick):

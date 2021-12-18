@@ -12,11 +12,12 @@ func _physics_process(delta):
 	if target != null:
 		if is_instance_valid(target):
 			if moveCooldown < 0.0 :
-				moveCooldown = 1.07
+				moveCooldown = 1.19
 				var direction = target.global_position - global_position
 				direction = direction.normalized()
-				apply_central_impulse(direction * 700 * (1.6-randf()) )
-				$Move.play()
+				apply_central_impulse(direction * 750 * (1.6-randf()) )
+				
+				$Body/AnimationPlayer.play("New Anim")
 				
 		else:
 			target = null
@@ -44,8 +45,10 @@ func _on_SwirlyBoi_body_entered(body):
 
 
 func _on_DetectionZone_body_entered(body):
+	
 	if body.team != team :
 		target = body
+		linear_damp = 1.6
 	pass # Replace with function body.
 
 

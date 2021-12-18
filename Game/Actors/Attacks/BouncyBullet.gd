@@ -16,7 +16,7 @@ func _ready():
 
 func _on_BouncyBullet_body_entered(body):
 	if body.has_method("bonk"):
-		body.bonk(team)
+		body.bonk(self)
 		call_deferred("queue_free")
 	pass # Replace with function body.
 

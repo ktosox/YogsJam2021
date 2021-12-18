@@ -62,6 +62,20 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
 }
+tracks/3/type = "method"
+tracks/3/path = NodePath("../..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "next_level"
+} ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "Load"
@@ -167,6 +181,7 @@ tracks/3/keys = {
 }
 
 [node name="BattleGround" type="Node2D" groups=["LEVEL"]]
+pause_mode = 2
 script = ExtResource( 5 )
 __meta__ = {
 "_editor_description_": ""
@@ -179,6 +194,7 @@ __meta__ = {
 }
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
+pause_mode = 1
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1280.0
