@@ -28,6 +28,7 @@ var dead = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+
 	pass # Replace with function body.
 
 func _input(event):
@@ -35,7 +36,7 @@ func _input(event):
 		if fireCooldown < 0.0:
 			fire()
 			
-			fireCooldown = fireRate
+			
 	if event.is_action_pressed("shift") and !$Body/AnimationPlayer.is_playing():
 		
 		if !fightMode :
@@ -85,12 +86,17 @@ func _physics_process(delta):
 	
 	fireCooldown -= delta
 	if fireCooldown < 0.0 :
+		if Input.is_action_pressed("shoot"):
+			fire()
+	else:
 		$Body/Ring/CircleSmall.visible = true
+		
 	
 	pass
 
 
 func fire():
+	fireCooldown = fireRate
 	var bullet = bulletScene.instance()
 	var fireVec = $Body/Out.global_position - global_position
 	fireVec = fireVec.normalized()

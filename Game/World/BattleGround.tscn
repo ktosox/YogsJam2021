@@ -1,9 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Actors/Player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Actors/Walls.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Actors/Spawner.tscn" type="PackedScene" id=4]
+[ext_resource path="res://World/BattleGround.gd" type="Script" id=5]
+[ext_resource path="res://Resources/Font/GrapeSoda.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="Environment" id=3]
 background_mode = 4
@@ -21,12 +19,158 @@ glow_bloom = 0.41
 glow_blend_mode = 0
 glow_bicubic_upscale = true
 
-[node name="BattleGround" type="Node2D"]
+[sub_resource type="DynamicFont" id=4]
+size = 64
+extra_spacing_char = 7
+font_data = ExtResource( 6 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "End"
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("..:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Load"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("ProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.3, 2.8, 3.7, 4 ),
+"transitions": PoolRealArray( -0.5, 0.5, 1, -0.5, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 36.0, 40.0, 75.0, 96.0, 100.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("..:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("..:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("ProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 69.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("..:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("..:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+
+[node name="BattleGround" type="Node2D" groups=["LEVEL"]]
+script = ExtResource( 5 )
 __meta__ = {
 "_editor_description_": ""
 }
-
-[node name="GUI" parent="." instance=ExtResource( 1 )]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )
@@ -59,17 +203,47 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Walls" parent="ViewportContainer/Viewport" instance=ExtResource( 3 )]
-modulate = Color( 0.333333, 0.333333, 0.333333, 1 )
-tile_data = PoolIntArray( -1310741, 0, 0, -1310740, 0, 65536, -1310739, 0, 65536, -1310738, 0, 65536, -1310737, 0, 65536, -1310736, 0, 65536, -1310735, 0, 65536, -1310734, 0, 65536, -1310733, 0, 65536, -1310732, 0, 65536, -1310731, 0, 65536, -1310730, 0, 65536, -1310729, 0, 65536, -1310728, 0, 65536, -1310727, 0, 65536, -1310726, 0, 65536, -1310725, 0, 65536, -1310724, 0, 65536, -1310723, 0, 65536, -1310722, 0, 65536, -1310721, 0, 65536, -1376256, 0, 65536, -1376255, 0, 65536, -1376254, 0, 65536, -1376253, 0, 65536, -1376252, 0, 65536, -1376251, 0, 65536, -1376250, 0, 65536, -1376249, 0, 65536, -1376248, 0, 65536, -1376247, 0, 65536, -1376246, 0, 65536, -1376245, 0, 65536, -1376244, 0, 65536, -1376243, 0, 65536, -1376242, 0, 65536, -1376241, 0, 65536, -1376240, 0, 65536, -1376239, 0, 65536, -1376238, 0, 65536, -1376237, 0, 65536, -1376236, 0, 1, -1245205, 0, 65536, -1245204, 0, 65536, -1245203, 0, 65536, -1245202, 0, 65536, -1245201, 0, 65536, -1245200, 0, 65536, -1245199, 0, 65536, -1245198, 0, 65536, -1245197, 0, 65536, -1245196, 0, 65536, -1245195, 0, 65536, -1245194, 0, 65536, -1245193, 0, 65536, -1245192, 0, 65536, -1245191, 0, 65536, -1245190, 0, 65536, -1245189, 0, 65536, -1245188, 0, 65536, -1245187, 0, 65536, -1245186, 0, 65536, -1245185, 0, 65536, -1310720, 0, 65536, -1310719, 0, 65536, -1310718, 0, 65536, -1310717, 0, 65536, -1310716, 0, 65536, -1310715, 0, 65536, -1310714, 0, 65536, -1310713, 0, 65536, -1310712, 0, 65536, -1310711, 0, 65536, -1310710, 0, 65536, -1310709, 0, 65536, -1310708, 0, 65536, -1310707, 0, 65536, -1310706, 0, 65536, -1310705, 0, 65536, -1310704, 0, 65536, -1310703, 0, 65536, -1310702, 0, 65536, -1310701, 0, 65536, -1310700, 0, 65536, -1179669, 0, 65536, -1179668, 0, 65536, -1179667, 0, 131073, -1245166, 0, 131072, -1245165, 0, 65536, -1245164, 0, 65536, -1114133, 0, 65536, -1114132, 0, 65536, -1179629, 0, 65536, -1179628, 0, 65536, -1048597, 0, 65536, -1048596, 0, 65536, -1114093, 0, 65536, -1114092, 0, 65536, -983061, 0, 65536, -983060, 0, 65536, -1048572, 0, 0, -1048571, 0, 65536, -1048570, 0, 1, -1048557, 0, 65536, -1048556, 0, 65536, -917525, 0, 65536, -917524, 0, 65536, -917517, 0, 0, -917516, 0, 1, -983036, 0, 65536, -983035, 0, 65536, -983034, 0, 65536, -983021, 0, 65536, -983020, 0, 65536, -851989, 0, 65536, -851988, 0, 65536, -851981, 0, 65536, -851980, 0, 65536, -851979, 0, 65536, -851978, 0, 1, -917500, 0, 65536, -917499, 0, 65536, -917498, 0, 65536, -917485, 0, 65536, -917484, 0, 65536, -786453, 0, 65536, -786452, 0, 65536, -786445, 0, 65536, -786444, 0, 65536, -786443, 0, 65536, -786442, 0, 131073, -851964, 0, 65536, -851963, 0, 65536, -851962, 0, 65536, -851949, 0, 65536, -851948, 0, 65536, -720917, 0, 65536, -720916, 0, 65536, -720909, 0, 131072, -720908, 0, 131073, -786428, 0, 131072, -786427, 0, 65536, -786426, 0, 131073, -786413, 0, 65536, -786412, 0, 65536, -655381, 0, 65536, -655380, 0, 65536, -720877, 0, 65536, -720876, 0, 65536, -589845, 0, 65536, -589844, 0, 65536, -655341, 0, 65536, -655340, 0, 65536, -524309, 0, 65536, -524308, 0, 65536, -589805, 0, 65536, -589804, 0, 65536, -458773, 0, 65536, -458772, 0, 65536, -524269, 0, 65536, -524268, 0, 65536, -393237, 0, 65536, -393236, 0, 65536, -458733, 0, 65536, -458732, 0, 65536, -327701, 0, 65536, -327700, 0, 65536, -393197, 0, 65536, -393196, 0, 65536, -262165, 0, 65536, -262164, 0, 65536, -327661, 0, 65536, -327660, 0, 65536, -196629, 0, 65536, -196628, 0, 65536, -196620, 0, 0, -196619, 0, 65536, -196618, 0, 1, -262135, 0, 0, -262134, 0, 65536, -262133, 0, 65536, -262132, 0, 1, -262125, 0, 65536, -262124, 0, 65536, -131093, 0, 65536, -131092, 0, 65536, -131084, 0, 65536, -131083, 0, 65536, -131082, 0, 65536, -196599, 0, 65536, -196598, 0, 65536, -196597, 0, 65536, -196596, 0, 65536, -196589, 0, 65536, -196588, 0, 65536, -65557, 0, 65536, -65556, 0, 65536, -65548, 0, 65536, -65547, 0, 65536, -65546, 0, 65536, -131063, 0, 65536, -131062, 0, 65536, -131061, 0, 65536, -131060, 0, 65536, -131053, 0, 65536, -131052, 0, 65536, -21, 0, 65536, -20, 0, 65536, -12, 0, 65536, -11, 0, 65536, -10, 0, 65536, -9, 0, 65536, -8, 0, 65536, -7, 0, 65536, -6, 0, 65536, -5, 0, 1, -65527, 0, 65536, -65526, 0, 65536, -65525, 0, 65536, -65524, 0, 65536, -65517, 0, 65536, -65516, 0, 65536, 65515, 0, 65536, 65516, 0, 65536, 65524, 0, 131072, 65525, 0, 65536, 65526, 0, 65536, 65527, 0, 65536, 65528, 0, 65536, 65529, 0, 65536, 65530, 0, 65536, 65531, 0, 131073, 9, 0, 65536, 10, 0, 65536, 11, 0, 65536, 12, 0, 65536, 19, 0, 65536, 20, 0, 65536, 131051, 0, 65536, 131052, 0, 65536, 65545, 0, 65536, 65546, 0, 65536, 65547, 0, 65536, 65548, 0, 65536, 65555, 0, 65536, 65556, 0, 65536, 196587, 0, 65536, 196588, 0, 65536, 131081, 0, 65536, 131082, 0, 65536, 131083, 0, 65536, 131084, 0, 65536, 131091, 0, 65536, 131092, 0, 65536, 262123, 0, 65536, 262124, 0, 65536, 196617, 0, 131072, 196618, 0, 65536, 196619, 0, 65536, 196620, 0, 131073, 196627, 0, 65536, 196628, 0, 65536, 327659, 0, 65536, 327660, 0, 65536, 262163, 0, 65536, 262164, 0, 65536, 393195, 0, 65536, 393196, 0, 65536, 327699, 0, 65536, 327700, 0, 65536, 458731, 0, 65536, 458732, 0, 65536, 393235, 0, 65536, 393236, 0, 65536, 524267, 0, 65536, 524268, 0, 65536, 458771, 0, 65536, 458772, 0, 65536, 589803, 0, 65536, 589804, 0, 65536, 524298, 0, 0, 524299, 0, 1, 524307, 0, 65536, 524308, 0, 65536, 655339, 0, 65536, 655340, 0, 65536, 655352, 0, 0, 655353, 0, 1, 589834, 0, 65536, 589835, 0, 65536, 589843, 0, 65536, 589844, 0, 65536, 720875, 0, 65536, 720876, 0, 65536, 720888, 0, 65536, 720889, 0, 65536, 655370, 0, 65536, 655371, 0, 65536, 655379, 0, 65536, 655380, 0, 65536, 786411, 0, 65536, 786412, 0, 65536, 786424, 0, 65536, 786425, 0, 65536, 720906, 0, 65536, 720907, 0, 65536, 720915, 0, 65536, 720916, 0, 65536, 851947, 0, 65536, 851948, 0, 65536, 851960, 0, 65536, 851961, 0, 65536, 786442, 0, 65536, 786443, 0, 65536, 786451, 0, 65536, 786452, 0, 65536, 917483, 0, 65536, 917484, 0, 65536, 917496, 0, 65536, 917497, 0, 65536, 917498, 0, 65536, 917499, 0, 65536, 917500, 0, 65536, 917501, 0, 65536, 917502, 0, 65536, 917503, 0, 1, 851978, 0, 65536, 851979, 0, 65536, 851987, 0, 65536, 851988, 0, 65536, 983019, 0, 65536, 983020, 0, 65536, 983032, 0, 131072, 983033, 0, 65536, 983034, 0, 65536, 983035, 0, 65536, 983036, 0, 65536, 983037, 0, 65536, 983038, 0, 65536, 983039, 0, 131073, 917514, 0, 131072, 917515, 0, 131073, 917523, 0, 65536, 917524, 0, 65536, 1048555, 0, 65536, 1048556, 0, 65536, 983059, 0, 65536, 983060, 0, 65536, 1114091, 0, 65536, 1114092, 0, 65536, 1048595, 0, 65536, 1048596, 0, 65536, 1179627, 0, 65536, 1179628, 0, 65536, 1114131, 0, 65536, 1114132, 0, 65536, 1245163, 0, 65536, 1245164, 0, 65536, 1245165, 0, 1, 1179666, 0, 0, 1179667, 0, 65536, 1179668, 0, 65536, 1310699, 0, 65536, 1310700, 0, 65536, 1310701, 0, 65536, 1310702, 0, 65536, 1310703, 0, 65536, 1310704, 0, 65536, 1310705, 0, 65536, 1310706, 0, 65536, 1310707, 0, 65536, 1310708, 0, 65536, 1310709, 0, 65536, 1310710, 0, 65536, 1310711, 0, 65536, 1310712, 0, 65536, 1310713, 0, 65536, 1310714, 0, 65536, 1310715, 0, 65536, 1310716, 0, 65536, 1310717, 0, 65536, 1310718, 0, 65536, 1310719, 0, 65536, 1245184, 0, 65536, 1245185, 0, 65536, 1245186, 0, 65536, 1245187, 0, 65536, 1245188, 0, 65536, 1245189, 0, 65536, 1245190, 0, 65536, 1245191, 0, 65536, 1245192, 0, 65536, 1245193, 0, 65536, 1245194, 0, 65536, 1245195, 0, 65536, 1245196, 0, 65536, 1245197, 0, 65536, 1245198, 0, 65536, 1245199, 0, 65536, 1245200, 0, 65536, 1245201, 0, 65536, 1245202, 0, 65536, 1245203, 0, 65536, 1245204, 0, 65536, 1376235, 0, 131072, 1376236, 0, 65536, 1376237, 0, 65536, 1376238, 0, 65536, 1376239, 0, 65536, 1376240, 0, 65536, 1376241, 0, 65536, 1376242, 0, 65536, 1376243, 0, 65536, 1376244, 0, 65536, 1376245, 0, 65536, 1376246, 0, 65536, 1376247, 0, 65536, 1376248, 0, 65536, 1376249, 0, 65536, 1376250, 0, 65536, 1376251, 0, 65536, 1376252, 0, 65536, 1376253, 0, 65536, 1376254, 0, 65536, 1376255, 0, 65536, 1310720, 0, 65536, 1310721, 0, 65536, 1310722, 0, 65536, 1310723, 0, 65536, 1310724, 0, 65536, 1310725, 0, 65536, 1310726, 0, 65536, 1310727, 0, 65536, 1310728, 0, 65536, 1310729, 0, 65536, 1310730, 0, 65536, 1310731, 0, 65536, 1310732, 0, 65536, 1310733, 0, 65536, 1310734, 0, 65536, 1310735, 0, 65536, 1310736, 0, 65536, 1310737, 0, 65536, 1310738, 0, 65536, 1310739, 0, 65536, 1310740, 0, 131073 )
-autoGen = false
+[node name="Curtain" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1280, 720 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Player" parent="ViewportContainer/Viewport" instance=ExtResource( 2 )]
-position = Vector2( 197, 0 )
+[node name="VBoxContainer" type="VBoxContainer" parent="Curtain"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 90.0
+margin_right = -90.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Spawner" parent="ViewportContainer/Viewport" instance=ExtResource( 4 )]
-position = Vector2( 0, -464 )
-team = false
+[node name="Label" type="Label" parent="Curtain/VBoxContainer"]
+modulate = Color( 0.658824, 0.658824, 0.658824, 1 )
+margin_top = 301.0
+margin_right = 1100.0
+margin_bottom = 365.0
+custom_fonts/font = SubResource( 4 )
+text = "LOADING . . ."
+align = 1
+valign = 1
 
-[node name="Spawner2" parent="ViewportContainer/Viewport" instance=ExtResource( 4 )]
-position = Vector2( 0, 335 )
+[node name="ProgressBar" type="ProgressBar" parent="Curtain/VBoxContainer"]
+margin_top = 369.0
+margin_right = 1100.0
+margin_bottom = 419.0
+rect_min_size = Vector2( 0, 50 )
+value = 69.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Curtain/VBoxContainer"]
+playback_speed = 1.6
+anims/End = SubResource( 7 )
+anims/Load = SubResource( 5 )
+anims/RESET = SubResource( 6 )
+
+[connection signal="animation_finished" from="Curtain/VBoxContainer/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

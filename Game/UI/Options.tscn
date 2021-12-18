@@ -15,7 +15,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Tutorial" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Tutorial"]
+margin_right = 792.0
+margin_bottom = 564.0
+size_flags_vertical = 3
+color = Color( 0.486275, 0.439216, 0.439216, 1 )
+
+[node name="Controls" type="VBoxContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
 [node name="Sound" type="VBoxContainer" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -103,7 +132,7 @@ margin_bottom = 564.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="Layout2" type="VBoxContainer" parent="."]
+[node name="Credits" type="VBoxContainer" parent="."]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -111,17 +140,6 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="Layout2"]
-margin_right = 792.0
-margin_bottom = 564.0
-size_flags_vertical = 3
-color = Color( 0.764706, 0, 0, 1 )
 
 [connection signal="value_changed" from="Sound/Sound" to="." method="_on_Sound_value_changed"]
 [connection signal="value_changed" from="Sound/Effects" to="." method="_on_Effects_value_changed"]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Resources/Font/GrapeSoda.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://UI/MenuButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI/MainMenu.gd" type="Script" id=3]
 [ext_resource path="res://UI/Options.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Resources/Font/LycheeSoda.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.521978, 0.989011 )
@@ -14,11 +15,19 @@ gradient = SubResource( 2 )
 width = 200
 
 [sub_resource type="DynamicFont" id=1]
-size = 90
+size = 96
+outline_size = 4
+outline_color = Color( 0.47451, 0.47451, 0.47451, 1 )
+extra_spacing_char = 16
+extra_spacing_space = 10
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 64
 outline_size = 4
 outline_color = Color( 0.47451, 0.47451, 0.47451, 1 )
 extra_spacing_char = 12
-font_data = ExtResource( 1 )
+font_data = ExtResource( 5 )
 
 [node name="MainMenu" type="HBoxContainer"]
 anchor_right = 1.0
@@ -40,8 +49,6 @@ stretch_mode = 1
 [node name="Layout" type="VBoxContainer" parent="Buttons"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 12.0
-margin_bottom = -12.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -49,44 +56,16 @@ __meta__ = {
 
 [node name="Start" parent="Buttons/Layout" instance=ExtResource( 2 )]
 margin_left = 93.0
-margin_top = 23.0
+margin_top = 146.0
 margin_right = 271.0
-margin_bottom = 89.0
+margin_bottom = 212.0
 text = "START"
-
-[node name="Options" parent="Buttons/Layout" instance=ExtResource( 2 )]
-margin_left = 58.0
-margin_top = 139.0
-margin_right = 305.0
-margin_bottom = 205.0
-text = "OPTIONS"
-
-[node name="Tutorial" parent="Buttons/Layout" instance=ExtResource( 2 )]
-margin_left = 45.0
-margin_top = 256.0
-margin_right = 318.0
-margin_bottom = 322.0
-text = "TUTORIAL"
-
-[node name="HighScore" parent="Buttons/Layout" instance=ExtResource( 2 )]
-margin_left = 26.0
-margin_top = 372.0
-margin_right = 337.0
-margin_bottom = 438.0
-text = "HIGHSCORE"
-
-[node name="Credits" parent="Buttons/Layout" instance=ExtResource( 2 )]
-margin_left = 68.0
-margin_top = 489.0
-margin_right = 295.0
-margin_bottom = 555.0
-text = "CREDITS"
 
 [node name="Exit" parent="Buttons/Layout" instance=ExtResource( 2 )]
 margin_left = 117.0
-margin_top = 606.0
+margin_top = 508.0
 margin_right = 246.0
-margin_bottom = 672.0
+margin_bottom = 574.0
 text = "EXIT"
 
 [node name="ColorRect2" type="ColorRect" parent="."]
@@ -105,7 +84,7 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="ColorRect2/VBoxContainer"]
 margin_right = 912.0
-margin_bottom = 720.0
+margin_bottom = 106.0
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 1 )
 text = "GAME NAME"
@@ -113,14 +92,21 @@ align = 1
 valign = 1
 
 [node name="Options" parent="ColorRect2/VBoxContainer" instance=ExtResource( 4 )]
-visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 120.0
+margin_top = 110.0
+margin_right = 912.0
+margin_bottom = 610.0
+rect_min_size = Vector2( 800, 500 )
+
+[node name="HIGHSCORE" type="Label" parent="ColorRect2/VBoxContainer"]
+margin_top = 614.0
 margin_right = 912.0
 margin_bottom = 720.0
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 4 )
+text = " HIGH SCORE: none yet"
+valign = 1
 
 [connection signal="pressed" from="Buttons/Layout/Start" to="." method="_on_Start_pressed"]
-[connection signal="focus_exited" from="Buttons/Layout/Tutorial" to="Buttons/Layout/Tutorial" method="_on_MenuButton_focus_exited"]
-[connection signal="pressed" from="Buttons/Layout/Tutorial" to="." method="_on_Tutorial_pressed"]
 [connection signal="pressed" from="Buttons/Layout/Exit" to="." method="_on_Exit_pressed"]

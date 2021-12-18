@@ -16,7 +16,7 @@ func get_score():
 	return int(bbcode_text)
 
 func set_score(score):
-	bbcode_text = "[center]" + String(score).pad_zeros(14)
+	bbcode_text = "[center]" + String(score).pad_zeros(10)
 	pass
 
 func add_points(points):

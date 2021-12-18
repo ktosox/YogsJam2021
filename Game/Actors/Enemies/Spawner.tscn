@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://Actors/Spawner.gd" type="Script" id=1]
+[ext_resource path="res://Actors/Enemies/Spawner.gd" type="Script" id=1]
 [ext_resource path="res://Resources/Sprites/Circle_small.png" type="Texture" id=2]
 [ext_resource path="res://Resources/Sprites/Square_round.png" type="Texture" id=3]
+[ext_resource path="res://Resources/Sprites/Junk1.png" type="Texture" id=4]
+[ext_resource path="res://Resources/Sound/Effects/FunkyExplosion.wav" type="AudioStream" id=5]
 
 [sub_resource type="PhysicsMaterial" id=5]
 bounce = 1.0
@@ -40,7 +42,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.9 ),
+"times": PoolRealArray( 0, 0.8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -92,6 +94,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Death:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -156,6 +170,46 @@ tracks/4/keys = {
 "update": 0,
 "values": [ true ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Death:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0.0125, 0.14375, 0.18125, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0.564706, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[sub_resource type="Curve" id=10]
+_data = [ Vector2( 0, 1 ), 0.0, -2.75813, 0, 0, Vector2( 0.84153, 0.25 ), -0.0378099, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=11]
+curve = SubResource( 10 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+emission_shape = 1
+emission_sphere_radius = 2.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 60.0
+initial_velocity_random = 0.35
+orbit_velocity = 0.0
+orbit_velocity_random = 0.4
+damping = 20.0
+scale = 0.7
+scale_curve = SubResource( 11 )
+color_ramp = SubResource( 9 )
 
 [node name="Spawner" type="RigidBody2D"]
 collision_layer = 2
@@ -216,5 +270,21 @@ autostart = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/New Anim" = SubResource( 6 )
 anims/RESET = SubResource( 7 )
+
+[node name="Explode" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+pitch_scale = 0.8
+bus = "Effects"
+
+[node name="Death" type="Particles2D" parent="."]
+emitting = false
+amount = 30
+lifetime = 1.6
+one_shot = true
+preprocess = 0.4
+explosiveness = 0.84
+randomness = 0.37
+process_material = SubResource( 12 )
+texture = ExtResource( 4 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

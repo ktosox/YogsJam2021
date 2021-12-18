@@ -17,7 +17,9 @@ func _ready():
 func explode():
 	for n in get_overlapping_bodies():
 		if n.has_method("bonk"):
-			n.bonk(!n.team,10)
+			var dummy = load("res://Actors/Enemies/Dummy.tscn").instance()
+			dummy.team = !n.team
+			n.bonk(dummy,10)
 	pass
 
 func _on_Animator_animation_finished(anim_name):

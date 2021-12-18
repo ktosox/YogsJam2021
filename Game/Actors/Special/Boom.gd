@@ -14,7 +14,9 @@ func explode():
 func _on_Explosion_body_entered(body):
 	if body.is_class("RigidBody2D"):
 		if body.has_method("bonk"):
-			body.bonk(!body.team,0.8)
+			var dummy = load("res://Actors/Enemies/Dummy.tscn").instance()
+			dummy.team = !body.team
+			body.bonk(dummy,0.8)
 			pass
 #	if body.is_class("KinematicBody2D"):
 #		var kickVec = body.global_position - global_position
