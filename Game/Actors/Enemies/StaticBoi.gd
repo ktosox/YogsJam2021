@@ -14,7 +14,7 @@ func _physics_process(delta):
 				$Line2D.rotation = angleVec.angle()
 				if cooldown < 0.0:
 					fire()
-					cooldown = 0.95
+					cooldown = 1.25
 		else:
 			target = null
 				
@@ -26,11 +26,18 @@ func fire():
 	var angleVec = $Line2D/Out.global_position - global_position
 	angleVec = angleVec.normalized()
 	bullet.add_collision_exception_with(self)
-	bullet.apply_central_impulse(angleVec*130)
+	bullet.apply_central_impulse(angleVec*170)
 	bullet.team = team
 	get_parent().add_child(bullet)
 	pass
-
+	
+func _kick_bucket():
+	cooldown = 500.0
+	$Square.visible = false
+	$CollisionPolygon2D.queue_free()
+	$Death.emitting = true
+	$Explode.play()
+	get_tree().get_nodes_in_group("LEVEL")[0].update_progress()
 
 
 func _on_DetectionZone_body_entered(body):

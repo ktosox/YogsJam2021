@@ -16,7 +16,7 @@ var impact = Vector2.ZERO
 
 var movement = Vector2.ZERO
 
-var team = true
+export var team = true
 
 var health = 1.0
 
@@ -113,13 +113,13 @@ func fire():
 func bonk(caller, damage = 1):
 	var attack = caller.team
 	if team == attack :
-		health += 0.1 * damage
+		health += 0.12 * damage
 		health = min(health,1.0)
 	else:
 		$Damage.play()
-		health -= 0.1 * damage
+		health -= 0.12 * damage
 		
-	if health < 0.25 :
+	if health < 0.2 :
 		die()
 	pass
 
@@ -131,12 +131,11 @@ func die():
 	pass
 
 func back_to_menu():
-	var endScore = get_tree().get_nodes_in_group("SCOREBOARD")[0].get_score()
-	if  endScore > GM.highScore :
-		GM.highScore = endScore
+	if  GM.currentScore > GM.highScore :
+		GM.highScore = GM.currentScore
 		GM.save_score(GM.highScore)
 	get_tree().change_scene("res://UI/MainMenu.tscn")
-	GM.currentLevel = 0
+	
 	pass
 
 func apply_impact(kick):

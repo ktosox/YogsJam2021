@@ -7,14 +7,15 @@ var GUI = preload("res://UI/GUI.tscn")
 
 var floor_layouts = [
 	preload("res://World/Layouts/Level1.tscn"),
-#	preload("res://World/Layouts/Level2.tscn"),
-#	preload("res://World/Layouts/Level3.tscn"),
-	
+	preload("res://World/Layouts/Level2.tscn"),
+	preload("res://World/Layouts/Level3.tscn"),
 ]
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GM.currentScore = 0
+	GM.currentLevel = 0
 	next_level()
 	pass # Replace with function body.
 
@@ -28,8 +29,8 @@ func next_level():
 	pass
 
 func load_level():
-	#$Curtain/VBoxContainer/AnimationPlayer.play("Load")
-	add_GUI()
+	$Curtain/VBoxContainer/AnimationPlayer.play("Load")
+
 	var new_layout = floor_layouts[GM.currentLevel%3]
 	$ViewportContainer/Viewport.add_child(new_layout.instance())
 	progress_tracker = 3
@@ -56,4 +57,7 @@ func update_progress():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "Load" :
 		add_GUI()
+	if anim_name == "End" :
+		$ViewportContainer/Viewport.get_children()[0].queue_free()
+		next_level()
 	pass # Replace with function body.

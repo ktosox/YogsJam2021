@@ -1,14 +1,10 @@
 extends RichTextLabel
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-var zeroes = "00000000"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	set_score(0)
+	set_score(GM.currentScore)
 	pass # Replace with function body.
 
 
@@ -20,9 +16,8 @@ func set_score(score):
 	pass
 
 func add_points(points):
-	var currentPoints = int(bbcode_text)
-	currentPoints += points
-	set_score(currentPoints)
+	GM.currentScore += points
+	set_score(GM.currentScore)
 
 	
 	pass
