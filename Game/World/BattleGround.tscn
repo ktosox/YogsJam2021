@@ -243,7 +243,7 @@ rect_min_size = Vector2( 0, 50 )
 value = 69.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Curtain/VBoxContainer"]
-playback_speed = 1.6
+playback_speed = 6.0
 anims/End = SubResource( 7 )
 anims/Load = SubResource( 5 )
 anims/RESET = SubResource( 6 )

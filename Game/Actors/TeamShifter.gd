@@ -1,8 +1,7 @@
-extends RigidBody2D
+extends Area2D
 
 
-var team = false
-
+export var team = true
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,13 +15,7 @@ func _ready():
 #	pass
 
 
-func _on_Bullet_body_entered(body):
-	if body.has_method("bonk"):
-		body.bonk(self)
-	call_deferred("queue_free")
-	pass # Replace with function body.
-
-
-func _on_TimerDeath_timeout():
-	call_deferred("queue_free")
+func _on_TeamShifter_body_entered(body):
+	if body.has_method("update_team"):
+		body.update_team(team)
 	pass # Replace with function body.

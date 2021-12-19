@@ -9,6 +9,8 @@ extends HBoxContainer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Buttons/Layout/Start.grab_focus()
+	if GM.highScore !=0 :
+		$ColorRect2/VBoxContainer/HIGHSCORE.text = "HIGH SCORE: " + String(GM.highScore)
 	pass # Replace with function body.
 
 

@@ -19,7 +19,8 @@ func _ready():
 	update_team()
 	pass # Replace with function body.
 
-func update_team():
+func update_team(newTeam = team):
+	team = newTeam
 	modulate = GM.teamColor[team]
 	modulate = modulate.darkened(1 - health)
 	pass

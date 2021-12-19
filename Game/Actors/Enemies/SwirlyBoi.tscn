@@ -193,8 +193,7 @@ contact_monitor = true
 can_sleep = false
 linear_damp = 0.0
 script = ExtResource( 3 )
-death = 0.3
-armor = 0.25
+armor = 0.35
 points = 30
 
 [node name="Move" type="AudioStreamPlayer2D" parent="."]

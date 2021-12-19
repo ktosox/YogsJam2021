@@ -370,8 +370,6 @@ rotating = true
 current = true
 zoom = Vector2( 4, 4 )
 process_mode = 0
-smoothing_enabled = true
-smoothing_speed = 6.0
 
 [node name="Label" type="Label" parent="Camera2D"]
 margin_left = -152.0
@@ -477,4 +475,9 @@ stream = ExtResource( 10 )
 pitch_scale = 1.6
 bus = "Effects"
 
+[node name="TimerTurn" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="animation_finished" from="Body/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="TimerTurn" to="." method="_on_TimerTurn_timeout"]

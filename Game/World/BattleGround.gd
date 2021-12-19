@@ -25,12 +25,10 @@ func next_level():
 		$GUI.queue_free()
 	load_level()
 	GM.currentLevel += 1
-	
 	pass
 
 func load_level():
 	$Curtain/VBoxContainer/AnimationPlayer.play("Load")
-
 	var new_layout = floor_layouts[GM.currentLevel%3]
 	$ViewportContainer/Viewport.add_child(new_layout.instance())
 	progress_tracker = 3

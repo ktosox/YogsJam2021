@@ -26,9 +26,13 @@ var fireRate = 0.27
 
 var dead = false
 
+var isTurning = false
+
+var turnDirection = Vector2(0,-1)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
+	update_team()
 	pass # Replace with function body.
 
 func _input(event):
@@ -69,8 +73,10 @@ func _physics_process(delta):
 #			rotate(direction.x*delta*12)
 	if direction.y < 0 :
 		direction.y *= 1.8
-	direction.x += 0.2 * turn
-	rotate(turn*delta*2)
+	if turn !=0 and !isTurning :
+		snap_player(turn)
+		pass
+	
 	direction = direction.rotated(rotation)
 	direction *= delta * ( ACCEL )
 	movement = movement - ( movement / (FRICTION*delta) ) + direction
@@ -81,8 +87,6 @@ func _physics_process(delta):
 	impact -= delta  * impact
 	#$Body.rotation = movement.angle()
 	#$Camera2D.rotation = movement.angle() + PI*0.5
-	modulate = GM.teamColor[team]
-	modulate = modulate.darkened(1 - health)
 	
 	fireCooldown -= delta
 	if fireCooldown < 0.0 :
@@ -118,9 +122,15 @@ func bonk(caller, damage = 1):
 	else:
 		$Damage.play()
 		health -= 0.12 * damage
-		
+	update_team()
 	if health < 0.2 :
 		die()
+	pass
+
+func update_team(newTeam = team):
+	team = newTeam
+	modulate = GM.teamColor[team]
+	modulate = modulate.darkened(1 - health)
 	pass
 
 func die():
@@ -143,6 +153,20 @@ func apply_impact(kick):
 	pass
 
 
+func snap_player(dir):
+	$TimerTurn.start()
+	isTurning = true
+	rotate(dir*PI/2)
+	
+	pass
+
 func _on_AnimationPlayer_animation_finished(anim_name):
 	fightMode = !fightMode
+	pass # Replace with function body.
+
+
+
+
+func _on_TimerTurn_timeout():
+	isTurning = false
 	pass # Replace with function body.
